@@ -95,6 +95,7 @@ function onSuccess(interface) {
   var noteon,
       noteoff,
       outputs = [];
+  var midiOutputs = [];
 
   console.log(interface);
 
@@ -102,11 +103,19 @@ function onSuccess(interface) {
   var iter = interface.outputs.values();
   for (var i = iter.next(); i && !i.done; i = iter.next()) {
     outputs.push(i.value);
+    midiOutputs.push("<option value='" + i.value.id + "'>" + i.value.name + "</option>");
+    console.log(i.value);
   }
 
-  // Craft 'note on' and 'note off' messages (channel 3, note number 60 [C3], max velocity)
-  noteon = [0x92, 60, 127];
-  noteoff = [0x82, 60, 127];
+  $("<select/>", {
+    "id": "midiOutputs",
+    "name": "midiOutputs",
+    html: midiOutputs.join("")
+  }).appendTo("#apparea");
+
+  // Craft 'note on' and 'note off' messages (channel 1, note number 60 [C3], max velocity)
+  noteon = [0x90, 60, 127];
+  noteoff = [0x80, 60, 127];
 
   // Send the 'note on' and schedule the 'note off' for 1 second later
   outputs[0].send(noteon);
