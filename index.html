@@ -2,16 +2,31 @@
 <html>
 <head>
 <title>VKWebEdit</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="vkwebedit.js"></script>
 </head>
 <body>
 <h1>VKWebEdit</h1>
+<div id="selectarea">
+</div>
 <div id="apparea">
+</div>
+<div id="controls">
+<button id="testnote">Test Note</button>
+<button id="sendpatch">Send Patch</button>
 </div>
 <script>
 $(document).ready(function() {
-   buildAppArea();
+  vkwebedit.buildAppArea();
+
+  $("#testnote").click(function() {
+    vkwebedit.sendTestNote();  
+  });
+
+  $("#sendpatch").click(function() {
+    sendPatch();
+  });
 });
 </script>
 </body>
