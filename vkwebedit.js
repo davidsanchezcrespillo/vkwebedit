@@ -72,11 +72,10 @@ var vkwebedit = function() {
   ];
 
   /**
-   * Build the application area, including controls.
+   * Build the interface for the CC controls.
    */
-  var buildAppArea = function() {
+  function buildCCControls(controls) {
     var items = [];
-    console.log(controls);
 
     $.each(controls, function(key, val) {
       items.push(
@@ -90,15 +89,31 @@ var vkwebedit = function() {
       "id": "controls",
       html: items.join("")
     }).appendTo("#apparea");
+  }
+
+  /**
+   * Build the application area, including controls.
+   */
+  var buildAppArea = function() {
 
     if (navigator.requestMIDIAccess) {
+      // Build the controls
+      buildCCControls(controls);
       // Try to connect to the MIDI interface.
       navigator.requestMIDIAccess().then(onSuccess, onFailure);
     } else {
       console.log("Web MIDI API not supported!");
+      var helpText = "Could not connect to the MIDI interface. Please <a href='http://caniuse.com/#feat=midi'>check if your browser supports MIDI</a>";
+      $("<p>", {
+        "class": "alert alert-warning",
+        html: helpText
+      }).appendTo("#apparea");
     }
   };
 
+  /**
+   * Get the current output from the user interface.
+   */
   function getOutputFromInterface() {
     var outputIndex = $('#midiOutputs').val();
     return outputs[outputIndex];
@@ -133,10 +148,47 @@ var vkwebedit = function() {
     );
   };
 
+  function getCCFromInterface() {
+    var allMidiCcValues = [];
+
+    $('#controls li').each(function(i) {
+      var controlid = $(this).attr('id').replace("li", "");
+      var ccid = parseInt(controlid.replace("cc", ""));
+
+      var ccvalue = parseInt($('#' + controlid).val());
+
+      var message = [0x1101, ccid, ccvalue];
+
+      allMidiCcValues.push(message);
+    });
+
+    return allMidiCcValues;
+  }
+
+  /**
+   * Send a patch to a MIDI output device.
+   * The CC codes and the values are taken from the interface.
+   */
   var sendPatch = function() {
+    var output = getOutputFromInterface();
+
+    $('#controls li').each(function(i) {
+      var controlid = $(this).attr('id').replace("li", "");
+      var ccid = parseInt(controlid.replace("cc", ""));
+
+      var ccvalue = parseInt($('#' + controlid).val());
+
+      var message = [0xB0, ccid, ccvalue];
+
+      //alert(message);
+
+      output.send(message);
+    });
   };
 
-  // Function executed on successful connection
+  /**
+   * Function executed on successful MIDI connection.
+   */
   function onSuccess(interface) {
     var noteon,
       noteoff;
@@ -159,18 +211,16 @@ var vkwebedit = function() {
       "name": "midiOutputs",
       html: midiOutputs.join("")
     }).appendTo("#selectarea");
-
-    //for (output in outputs) {
-    //  console.log("Sending to output: " + output);
-    //  sendTestNote(output);
-    //}
   }
 
-  // Function executed on failed connection
+  /**
+   * Function executed on failed MIDI connection.
+   */
   function onFailure(error) {
     console.log("Could not connect to the MIDI interface");
   }
 
+  // Public interface.
   return {
     "buildAppArea": buildAppArea,
     "sendTestNote": sendTestNote,
