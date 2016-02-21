@@ -2,14 +2,12 @@
 <html>
 <head>
 <title>VKWebEdit</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="style.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="vkwebedit.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -53,18 +51,18 @@
 
 <div class="col-xs-2">
   <h2>VCO</h2>
-  <div class="form-group">
-  <label for="cc42">Detune</label>
-  <input class="form-control cc-control" id="cc42" data-id="42" data-name="Detune" type="range" min="0" max="127" step="1" value="0">
+  <div class="">
+  <div><label for="cc42">Detune</label></div>
+  <input class="cc-control dial" id="cc42" data-id="42" data-name="Detune" type="text" data-min="0" data-max="127" step="1" value="0">
+  </div>
+
+  <div class="">
+  <div><label for="cc5">Portamento</label></div>
+  <input class="cc-control dial" id="cc5" data-id="5" data-name="Voice" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc5">Portamento</label>
-  <input class="form-control cc-control" id="cc5" data-id="5" data-name="Voice" type="range" min="0" max="127" step="1" value="0">
-  </div>
-
-  <div class="form-group">
-  <label for="cc43">VCO EG Int</label>
+  <div><label for="cc43">VCO EG Int</label></div>
   <input class="form-control cc-control" id="cc43" data-id="43" data-name="VCO EG Int" type="range" min="0" max="127" step="1" value="0">
   </div>
 </div>
@@ -135,9 +133,18 @@
 </div>
 </div>
 
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<script src="vkwebedit.js"></script>
 
 <script>
 $(document).ready(function() {
+  $(".dial").knob({
+    'width':50,
+    'height':50
+});
+
   vkwebedit.buildApp();
 
   $("#testnote").click(function() {
@@ -149,7 +156,5 @@ $(document).ready(function() {
   });
 });
 </script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 </html>

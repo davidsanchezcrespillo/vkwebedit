@@ -1,0 +1,8 @@
+{
+    "name": "LTWords",
+    "dependencies": {
+        "bootstrap": "*",
+        "jquery": "*",
+        "jquery-knob": "*"
+    }
+}
