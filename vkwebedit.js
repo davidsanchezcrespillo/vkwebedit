@@ -79,9 +79,34 @@ var vkwebedit = function() {
   };
 
   /**
+   * Get the current patch data from the user interface.
+   */
+  function getCurrentPatchData() {
+    var messagesList = [];
+    $('input.cc-control').each(function(i) {
+      var ccid = $(this).attr('data-id');
+      var ccname = $(this).attr('data-name');
+      var ccvalue = $(this).val();
+
+      messagesList.push({
+        "id": ccid,
+        "name": ccname,
+        "value": ccvalue
+      });
+    });
+
+    return { messagesList };
+  }
+
+  /**
    * Save current patch in json format.
    */
   var savePatch = function() {
+    var patchData = getCurrentPatchData();
+    var data = "data:application/octet-stream;charset=utf-8;filename=patch.json," + encodeURIComponent(JSON.stringify(patchData));
+    var filename = $('#patchname').val();
+    $('#savepatch').attr('download', filename);
+    $('#savepatch').attr('href', data);
   };
 
   /**
