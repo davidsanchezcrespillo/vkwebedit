@@ -11,7 +11,10 @@
 </head>
 <body>
 <div class="container">
+<div class="page-header">
 <h1>VKWebEdit</h1>
+<p>A simple patch editor for the Korg Volca Keys</p>
+</div>
 
 <div class="row">
 
@@ -19,12 +22,20 @@
   <div id="selectarea">
     <div class="form-group">
       <label for="midiOutputs">Select your MIDI output:</label>
-      <select id="midiOutputs" name="midiOutputs"></select>
+      <select class="form-control" id="midiOutputs" name="midiOutputs"></select>
     </div>
   </div>
+</div>
+<div class="col-xs-4">
   <div id="controls">
-    <button id="testnote">Test Note</button>
-    <button id="sendpatch">Send Patch</button>
+    <button class="btn btn-default form-control" id="testnote"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp;Test Note</button>
+    <button class="btn btn-default form-control" id="sendpatch"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;Send patch</button>
+  </div>
+</div>
+<div class="col-xs-4">
+  <div id="controls">
+    <button class="btn btn-default form-control" id="savepatch"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Save patch</button>
+    <button class="btn btn-default form-control" id="loadpatch"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Load patch</button>
   </div>
 </div>
 </div>
@@ -34,36 +45,36 @@
 <div class="col-xs-2">
   <h2>Generic</h2>
   <div class="form-group">
-  <label for="cc11">Expression</label>
-  <input class="form-control cc-control" id="cc11" data-id="11" data-name="Expression" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc11">Expression</label></div>
+  <input class="cc-control dial" id="cc11" data-id="11" data-name="Expression" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc40">Voice</label>
-  <input class="form-control cc-control" id="cc40" data-id="40" data-name="Voice" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc40">Voice</label></div>
+  <input class="cc-control dial" id="cc40" data-id="40" data-name="Voice" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc41">Octave</label>
-  <input class="form-control cc-control" id="cc41" data-id="41" data-name="Expression" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc41">Octave</label></div>
+  <input class="cc-control dial" id="cc41" data-id="41" data-name="Expression" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 </div>
 
 <div class="col-xs-2">
   <h2>VCO</h2>
-  <div class="">
+  <div class="form-group">
   <div><label for="cc42">Detune</label></div>
   <input class="cc-control dial" id="cc42" data-id="42" data-name="Detune" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
-  <div class="">
+  <div class="form-group">
   <div><label for="cc5">Portamento</label></div>
   <input class="cc-control dial" id="cc5" data-id="5" data-name="Voice" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
   <div><label for="cc43">VCO EG Int</label></div>
-  <input class="form-control cc-control" id="cc43" data-id="43" data-name="VCO EG Int" type="range" min="0" max="127" step="1" value="0">
+  <input class="cc-control dial" id="cc43" data-id="43" data-name="VCO EG Int" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 </div>
 
@@ -71,13 +82,13 @@
   <h2>VCF</h2>
 
   <div class="form-group">
-  <label for="cc44">Cutoff</label>
-  <input class="form-control cc-control" id="cc44" data-id="44" data-name="Cutoff" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc44">Cutoff</label></div>
+  <input class="cc-control dial" id="cc44" data-id="44" data-name="Cutoff" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc45">VCF EG Int</label>
-  <input class="form-control cc-control" id="cc45" data-id="45" data-name="VCF EG Int" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc45">VCF EG Int</label></div>
+  <input class="cc-control dial" id="cc45" data-id="45" data-name="VCF EG Int" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 </div>
 
@@ -85,49 +96,49 @@
 <div class="col-xs-2">
   <h2>LFO</h2>
   <div class="form-group">
-  <label for="cc46">LFO Rate</label>
-  <input class="form-control cc-control" id="cc46" data-id="46" data-name="LFO Rate" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc46">LFO Rate</label></div>
+  <input class="cc-control dial" id="cc46" data-id="46" data-name="LFO Rate" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc47">LFO Pitch Int</label>
-  <input class="form-control cc-control" id="cc47" data-id="47" data-name="LFO Pitch Int" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc47">LFO Pitch Int</label></div>
+  <input class="cc-control dial" id="cc47" data-id="47" data-name="LFO Pitch Int" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc48">LFO Cutoff Int</label>
-  <input class="form-control cc-control" id="cc48" data-id="48" data-name="LFO Cutoff Int" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc48">LFO Cutoff Int</label></div>
+  <input class="cc-control dial" id="cc48" data-id="48" data-name="LFO Cutoff Int" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 </div>
 
 <div class="col-xs-2">
   <h2>EG</h2>
   <div class="form-group">
-  <label for="cc49">EG Attack</label>
-  <input class="form-control cc-control" id="cc49" data-id="49" data-name="EG Attack" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc49">EG Attack</label></div>
+  <input class="cc-control dial" id="cc49" data-id="49" data-name="EG Attack" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc50">EG Decay/Release</label>
-  <input class="form-control cc-control" id="cc50" data-id="50" data-name="EG Decay/Release" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc50">EG Decay/Release</label></div>
+  <input class="cc-control dial" id="cc50" data-id="50" data-name="EG Decay/Release" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc51">EG Sustain</label>
-  <input class="form-control cc-control" id="cc51" data-id="51" data-name="EG Sustain" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc51">EG Sustain</label></div>
+  <input class="cc-control dial" id="cc51" data-id="51" data-name="EG Sustain" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 </div>
 
 <div class="col-xs-2">
   <h2>DELAY</h2>
   <div class="form-group">
-  <label for="cc52">Delay Time</label>
-  <input class="form-control cc-control" id="cc52" data-id="52" data-name="Delay Time" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc52">Delay Time</label></div>
+  <input class="cc-control dial" id="cc52" data-id="52" data-name="Delay Time" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
   <div class="form-group">
-  <label for="cc53">Delay Feedback</label>
-  <input class="form-control cc-control" id="cc53" data-id="53" data-name="Delay Feedback" type="range" min="0" max="127" step="1" value="0">
+  <div><label for="cc53">Delay Feedback</label></div>
+  <input class="cc-control dial" id="cc53" data-id="53" data-name="Delay Feedback" type="text" data-min="0" data-max="127" step="1" value="0">
   </div>
 
 </div>
@@ -141,8 +152,14 @@
 <script>
 $(document).ready(function() {
   $(".dial").knob({
-    'width':50,
-    'height':50
+    'width': '70',
+    'height': '100',
+    'cursor': false,
+    'thickness': .3,
+    'angleOffset': -150,
+    'angleArc': 300,
+    'fgColor': '#222222',
+    'bgColor': '#8888FF'
 });
 
   vkwebedit.buildApp();
@@ -153,6 +170,14 @@ $(document).ready(function() {
 
   $("#sendpatch").click(function() {
     vkwebedit.sendPatch();
+  });
+
+  $("#savepatch").click(function() {
+    vkwebedit.savePatch();
+  });
+
+  $("#loadpatch").click(function() {
+    vkwebedit.loadPatch();
   });
 });
 </script>

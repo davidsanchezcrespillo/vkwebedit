@@ -79,6 +79,18 @@ var vkwebedit = function() {
   };
 
   /**
+   * Save current patch in json format.
+   */
+  var savePatch = function() {
+  };
+
+  /**
+   * Load a patch in json format.
+   */
+  var loadPatch = function() {
+  };
+
+  /**
    * Function executed on successful MIDI connection.
    */
   function onSuccess(interface) {
@@ -112,7 +124,9 @@ var vkwebedit = function() {
   return {
     "buildApp": buildApp,
     "sendTestNote": sendTestNote,
-    "sendPatch": sendPatch
+    "sendPatch": sendPatch,
+    "savePatch": savePatch,
+    "loadPatch": loadPatch
   };
 
 }();
