@@ -3,102 +3,13 @@ var vkwebedit = function() {
   // All the outputs detected at application load time
   var outputs = [];
 
-  // CC codes for the Korg Volca Keys.
-  var controls = [
-    {
-       "code":5,
-       "label":"Portamento"
-    },
-    {
-       "code":11,
-       "label":"Expression"
-    },
-    {
-       "code":40,
-       "label":"Voice"
-    },
-    {
-       "code":41,
-       "label":"Octave"
-    },
-    {
-       "code":42,
-       "label":"Detune"
-    },
-    {
-       "code":43,
-       "label":"VCO EG Int"
-    },
-    {
-       "code":44,
-       "label":"Cutoff"
-    },
-    {
-       "code":45,
-       "label":"VCF EG Int"
-    },
-    {
-       "code":46,
-       "label":"LFO Rate"
-    },
-    {
-       "code":47,
-       "label":"LFO Pitch Int"
-    },
-    {
-       "code":48,
-       "label":"LFO Cutoff Int"
-    },
-    {
-       "code":49,
-       "label":"EG Attack"
-    },
-    {
-       "code":50,
-       "label":"EG Decay/Release"
-    },
-    {
-       "code":51,
-       "label":"EG Sustain"
-    },
-    {
-       "code":52,
-       "label":"Delay Time"
-    },
-    {
-       "code":53,
-       "label":"Delay Feedback"
-    }
-  ];
-
-  /**
-   * Build the interface for the CC controls.
-   */
-  function buildCCControls(controls) {
-    var items = [];
-
-    $.each(controls, function(key, val) {
-      items.push(
-        "<li id='licc" + val.code + "'>" + val.code + ": " + 
-        "<label for='cc" + val.code + "'>" + val.label + "</label><input id='cc" + val.code + "' type='range' min='0' max='127' step='1' value='0'></li>"
-      );
-    });
-
-    $("<ul/>", {
-      "class": "controls",
-      "id": "controls",
-      html: items.join("")
-    }).appendTo("#apparea");
-  }
 
   /**
    * Build the application area, including controls.
    */
-  var buildAppArea = function() {
+  var buildApp = function() {
 
     if (navigator.requestMIDIAccess) {
-      // Build the controls
-      buildCCControls(controls);
       // Try to connect to the MIDI interface.
       navigator.requestMIDIAccess().then(onSuccess, onFailure);
     } else {
@@ -148,23 +59,6 @@ var vkwebedit = function() {
     );
   };
 
-  function getCCFromInterface() {
-    var allMidiCcValues = [];
-
-    $('#controls li').each(function(i) {
-      var controlid = $(this).attr('id').replace("li", "");
-      var ccid = parseInt(controlid.replace("cc", ""));
-
-      var ccvalue = parseInt($('#' + controlid).val());
-
-      var message = [0x1101, ccid, ccvalue];
-
-      allMidiCcValues.push(message);
-    });
-
-    return allMidiCcValues;
-  }
-
   /**
    * Send a patch to a MIDI output device.
    * The CC codes and the values are taken from the interface.
@@ -172,15 +66,13 @@ var vkwebedit = function() {
   var sendPatch = function() {
     var output = getOutputFromInterface();
 
-    $('#controls li').each(function(i) {
-      var controlid = $(this).attr('id').replace("li", "");
-      var ccid = parseInt(controlid.replace("cc", ""));
-
-      var ccvalue = parseInt($('#' + controlid).val());
+    $('input.cc-control').each(function(i) {
+      var ccid = parseInt($(this).attr('data-id'));
+      var ccvalue = parseInt($(this).val());
 
       var message = [0xB0, ccid, ccvalue];
 
-      //alert(message);
+      console.log(message);
 
       output.send(message);
     });
@@ -206,11 +98,7 @@ var vkwebedit = function() {
       numDevice++;
     }
 
-    $("<select/>", {
-      "id": "midiOutputs",
-      "name": "midiOutputs",
-      html: midiOutputs.join("")
-    }).appendTo("#selectarea");
+    $("#midiOutputs").append(midiOutputs.join(""));
   }
 
   /**
@@ -222,7 +110,7 @@ var vkwebedit = function() {
 
   // Public interface.
   return {
-    "buildAppArea": buildAppArea,
+    "buildApp": buildApp,
     "sendTestNote": sendTestNote,
     "sendPatch": sendPatch
   };

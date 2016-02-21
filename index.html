@@ -2,23 +2,143 @@
 <html>
 <head>
 <title>VKWebEdit</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="style.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="vkwebedit.js"></script>
 </head>
 <body>
+<div class="container">
 <h1>VKWebEdit</h1>
-<div id="selectarea">
+
+<div class="row">
+
+<div class="col-xs-4">
+  <div id="selectarea">
+    <div class="form-group">
+      <label for="midiOutputs">Select your MIDI output:</label>
+      <select id="midiOutputs" name="midiOutputs"></select>
+    </div>
+  </div>
+  <div id="controls">
+    <button id="testnote">Test Note</button>
+    <button id="sendpatch">Send Patch</button>
+  </div>
 </div>
-<div id="apparea">
 </div>
-<div id="controls">
-<button id="testnote">Test Note</button>
-<button id="sendpatch">Send Patch</button>
+
+<div class="row">
+
+<div class="col-xs-2">
+  <h2>Generic</h2>
+  <div class="form-group">
+  <label for="cc11">Expression</label>
+  <input class="form-control cc-control" id="cc11" data-id="11" data-name="Expression" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc40">Voice</label>
+  <input class="form-control cc-control" id="cc40" data-id="40" data-name="Voice" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc41">Octave</label>
+  <input class="form-control cc-control" id="cc41" data-id="41" data-name="Expression" type="range" min="0" max="127" step="1" value="0">
+  </div>
 </div>
+
+<div class="col-xs-2">
+  <h2>VCO</h2>
+  <div class="form-group">
+  <label for="cc42">Detune</label>
+  <input class="form-control cc-control" id="cc42" data-id="42" data-name="Detune" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc5">Portamento</label>
+  <input class="form-control cc-control" id="cc5" data-id="5" data-name="Voice" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc43">VCO EG Int</label>
+  <input class="form-control cc-control" id="cc43" data-id="43" data-name="VCO EG Int" type="range" min="0" max="127" step="1" value="0">
+  </div>
+</div>
+
+<div class="col-xs-2">
+  <h2>VCF</h2>
+
+  <div class="form-group">
+  <label for="cc44">Cutoff</label>
+  <input class="form-control cc-control" id="cc44" data-id="44" data-name="Cutoff" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc45">VCF EG Int</label>
+  <input class="form-control cc-control" id="cc45" data-id="45" data-name="VCF EG Int" type="range" min="0" max="127" step="1" value="0">
+  </div>
+</div>
+
+
+<div class="col-xs-2">
+  <h2>LFO</h2>
+  <div class="form-group">
+  <label for="cc46">LFO Rate</label>
+  <input class="form-control cc-control" id="cc46" data-id="46" data-name="LFO Rate" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc47">LFO Pitch Int</label>
+  <input class="form-control cc-control" id="cc47" data-id="47" data-name="LFO Pitch Int" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc48">LFO Cutoff Int</label>
+  <input class="form-control cc-control" id="cc48" data-id="48" data-name="LFO Cutoff Int" type="range" min="0" max="127" step="1" value="0">
+  </div>
+</div>
+
+<div class="col-xs-2">
+  <h2>EG</h2>
+  <div class="form-group">
+  <label for="cc49">EG Attack</label>
+  <input class="form-control cc-control" id="cc49" data-id="49" data-name="EG Attack" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc50">EG Decay/Release</label>
+  <input class="form-control cc-control" id="cc50" data-id="50" data-name="EG Decay/Release" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc51">EG Sustain</label>
+  <input class="form-control cc-control" id="cc51" data-id="51" data-name="EG Sustain" type="range" min="0" max="127" step="1" value="0">
+  </div>
+</div>
+
+<div class="col-xs-2">
+  <h2>DELAY</h2>
+  <div class="form-group">
+  <label for="cc52">Delay Time</label>
+  <input class="form-control cc-control" id="cc52" data-id="52" data-name="Delay Time" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+  <div class="form-group">
+  <label for="cc53">Delay Feedback</label>
+  <input class="form-control cc-control" id="cc53" data-id="53" data-name="Delay Feedback" type="range" min="0" max="127" step="1" value="0">
+  </div>
+
+</div>
+</div>
+
+
 <script>
 $(document).ready(function() {
-  vkwebedit.buildAppArea();
+  vkwebedit.buildApp();
 
   $("#testnote").click(function() {
     vkwebedit.sendTestNote();  
@@ -29,5 +149,7 @@ $(document).ready(function() {
   });
 });
 </script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 </html>
