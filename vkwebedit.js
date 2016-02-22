@@ -112,7 +112,41 @@ var vkwebedit = function() {
   /**
    * Load a patch in json format.
    */
-  var loadPatch = function() {
+  var loadPatch = function(files) {
+    console.log(files[0]);
+    var f = files[0];
+
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      if (f) {
+        var r = new FileReader();
+        r.onload = function(e) { 
+          var contents = e.target.result;
+          console.log( "Got the file.\n" 
+              +"name: " + f.name + "\n"
+              +"type: " + f.type + "\n"
+              +"size: " + f.size + " bytes\n"
+              + "starts with: " + contents
+          );
+          var obj = JSON.parse(contents);
+          // console.log(obj);
+          for (var i = 0; i < obj.messagesList.length; i++) {
+            var controlObject = obj.messagesList[i];
+            console.log(controlObject);
+            var ccid = controlObject.id;
+            var ccvalue = controlObject.value;
+            $('#cc' + ccid).val(ccvalue);
+            $('input.dial').trigger('change');
+          }
+        }
+        r.readAsText(f);
+      } else { 
+        console.log("Failed to load file");
+      }
+    } else {
+      console.log('The File APIs are not fully supported by your browser.');
+      return;
+    }
   };
 
   /**

@@ -32,12 +32,16 @@
     <button class="btn btn-default form-control" id="sendpatch"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;Send patch</button>
   </div>
 </div>
-<div class="col-xs-4">
+<div class="col-xs-2">
   <div id="controls">
     <a class="btn btn-default form-control" id="savepatch" download="patch.json" href="#"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Save patch</a>
-    <input class="form-control" id="patchname" type="text" value="patch.json">
-    <button class="btn btn-default form-control" id="loadpatch"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Load patch</button>
+    <span class="btn btn-default btn-file form-control">
+      <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Load patch <input type="file" "id="loadpatch"" onchange="vkwebedit.loadPatch(this.files)">
+    </span>
   </div>
+</div>
+<div class="col-xs-2">
+    <input class="form-control" id="patchname" type="text" value="patch.json">
 </div>
 </div>
 
