@@ -1,5 +1,0 @@
-- Build interface with all the CC controls
-- Load / Save "patches" (sets of CC controls in JSON).
-- Send test: Send the current control parameters and a test melody to the synth.
-- Build interface with all the MIDI outputs
-
