@@ -72,7 +72,7 @@ var vkwebedit = function() {
 
       var message = [0xB0, ccid, ccvalue];
 
-      console.log(message);
+      //console.log(message);
 
       output.send(message);
     });
@@ -113,7 +113,9 @@ var vkwebedit = function() {
    * Load a patch in json format.
    */
   var loadPatch = function(files) {
-    console.log(files[0]);
+    console.log('Calling loadPatch');
+    if (!files) { return; }
+    //console.log(files[0]);
     var f = files[0];
 
     // Check for the various File API support.
@@ -122,21 +124,27 @@ var vkwebedit = function() {
         var r = new FileReader();
         r.onload = function(e) { 
           var contents = e.target.result;
-          console.log( "Got the file.\n" 
-              +"name: " + f.name + "\n"
-              +"type: " + f.type + "\n"
-              +"size: " + f.size + " bytes\n"
-              + "starts with: " + contents
-          );
+          //console.log( "Got the file.\n"
+          //    +"name: " + f.name + "\n"
+          //    +"type: " + f.type + "\n"
+          //    +"size: " + f.size + " bytes\n"
+          //    + "starts with: " + contents
+          //);
           var obj = JSON.parse(contents);
           // console.log(obj);
+          if (!obj.messagesList) {
+            console.log("Illegal file format");
+            return;
+          }
           for (var i = 0; i < obj.messagesList.length; i++) {
             var controlObject = obj.messagesList[i];
-            console.log(controlObject);
+            //console.log(controlObject);
             var ccid = controlObject.id;
             var ccvalue = controlObject.value;
+            console.log("ID: " + ccid + ". Value: " + ccvalue);
             $('#cc' + ccid).val(ccvalue);
-            $('input.dial').trigger('change');
+            // Update the knobs values too
+            $('.dial').trigger('change');
           }
         }
         r.readAsText(f);
@@ -157,7 +165,7 @@ var vkwebedit = function() {
       noteoff;
     var midiOutputs = [];
 
-    console.log(interface);
+    //console.log(interface);
 
     // Grab an array of all available devices
     var iter = interface.outputs.values();
@@ -165,7 +173,7 @@ var vkwebedit = function() {
     for (var i = iter.next(); i && !i.done; i = iter.next()) {
       outputs.push(i.value);
       midiOutputs.push("<option value='" + numDevice + "'>" + i.value.name + "</option>");
-      console.log(i.value);
+      //console.log(i.value);
       numDevice++;
     }
 

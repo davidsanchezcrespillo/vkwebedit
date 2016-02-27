@@ -37,7 +37,7 @@
 <div class="col-md-2">
     <a class="btn btn-default form-control" id="savepatch" download="patch.json" href="#"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Save patch</a>
     <label class="btn btn-default form-control" for="loadpatch">
-      <input id="loadpatch" type="file" style="display:none;" onchange="vkwebedit.loadPatch(this.files)">
+      <input id="loadpatch" type="file" style="display:none;" onchange="vkwebedit.loadPatch(this.files); this.value = '';">
       <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Load patch
     </label>
 </div>
@@ -45,11 +45,9 @@
     <input class="form-control" id="patchname" type="text" value="patch.json">
 </div>
 </div>
-
-<hr>
 <div class="row border-between">
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>Generic</h2>
   <div class="form-group">
   <div><label for="cc11">Expression</label></div>
@@ -67,7 +65,7 @@
   </div>
 </div>
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>VCO</h2>
   <div class="form-group">
   <div><label for="cc42">Detune</label></div>
@@ -85,7 +83,7 @@
   </div>
 </div>
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>VCF</h2>
 
   <div class="form-group">
@@ -100,7 +98,7 @@
 </div>
 
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>LFO</h2>
   <div class="form-group">
   <div><label for="cc46">LFO Rate</label></div>
@@ -118,7 +116,7 @@
   </div>
 </div>
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>EG</h2>
   <div class="form-group">
   <div><label for="cc49">EG Attack</label></div>
@@ -136,7 +134,7 @@
   </div>
 </div>
 
-<div class="col-md-2 col-sm-4 col-xs-6">
+<div class="col-md-2 col-sm-4 col-xs-6 text-center">
   <h2>DELAY</h2>
   <div class="form-group">
   <div><label for="cc52">Delay Time</label></div>
@@ -150,9 +148,6 @@
 
 </div>
 </div>
-
-<hr>
-
 <div class="well">
 DISCLAIMER: This is just a personal initiative, useful for me, and hopefully for someone else. If you want to use software to extend you Korg Volca Keys, there are <a href="http://fabriziopoce.com/volcacontrol.html">more complete alternatives</a>.
 </div>
@@ -175,6 +170,7 @@ DISCLAIMER: This is just a personal initiative, useful for me, and hopefully for
 
 <script>
 $(document).ready(function() {
+
   $(".dial").knob({
     'width': '70',
     'height': '100',
@@ -184,7 +180,7 @@ $(document).ready(function() {
     'angleArc': 300,
     'fgColor': '#222222',
     'bgColor': '#8888FF'
-});
+  });
 
   vkwebedit.buildApp();
 
@@ -200,9 +196,6 @@ $(document).ready(function() {
     vkwebedit.savePatch();
   });
 
-  $("#loadpatch").click(function() {
-    vkwebedit.loadPatch();
-  });
 });
 </script>
 </body>
