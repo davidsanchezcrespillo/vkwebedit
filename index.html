@@ -32,12 +32,12 @@
   </div>
 </div>
 <div class="col-md-4">
-    <button class="btn btn-default form-control" id="testnote"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp;Test Note</button>
-    <button class="btn btn-default form-control" id="sendpatch"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;Send patch</button>
+    <button class="btn btn-default btn-warning form-control spacebelow" id="testnote"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp;Test Note</button>
+    <button class="btn btn-default btn-success form-control spacebelow" id="sendpatch"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;Send patch</button>
 </div>
 <div class="col-md-2">
-    <a class="btn btn-default form-control" id="savepatch" download="patch.json" href="#"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Save patch</a>
-    <label class="btn btn-default form-control" for="loadpatch">
+    <a class="btn btn-default form-control spacebelow" id="savepatch" download="patch.json" href="#"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Save patch</a>
+    <label class="btn btn-default form-control spacebelow" for="loadpatch">
       <input id="loadpatch" type="file" style="display:none;" onchange="vkwebedit.loadPatch(this.files); this.value = '';">
       <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Load patch
     </label>
