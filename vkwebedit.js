@@ -70,9 +70,13 @@ var vkwebedit = function() {
       var ccid = parseInt($(this).attr('data-id'));
       var ccvalue = parseInt($(this).val());
 
-      var message = [0xB0, ccid, ccvalue];
+      // Adapt the value of the Octave parameter.
+      // 32': 0-21. 16': 22-43. 8': 44-65. 4': 66-87. 2': 88-109. 1': 110-127.
+      if (ccid == 41) {
+        ccvalue *= 22;
+      }
 
-      //console.log(message);
+      var message = [0xB0, ccid, ccvalue];
 
       output.send(message);
     });
@@ -115,7 +119,6 @@ var vkwebedit = function() {
   var loadPatch = function(files) {
     console.log('Calling loadPatch');
     if (!files) { return; }
-    //console.log(files[0]);
     var f = files[0];
 
     // Check for the various File API support.
@@ -124,21 +127,13 @@ var vkwebedit = function() {
         var r = new FileReader();
         r.onload = function(e) { 
           var contents = e.target.result;
-          //console.log( "Got the file.\n"
-          //    +"name: " + f.name + "\n"
-          //    +"type: " + f.type + "\n"
-          //    +"size: " + f.size + " bytes\n"
-          //    + "starts with: " + contents
-          //);
           var obj = JSON.parse(contents);
-          // console.log(obj);
           if (!obj.messagesList) {
             console.log("Illegal file format");
             return;
           }
           for (var i = 0; i < obj.messagesList.length; i++) {
             var controlObject = obj.messagesList[i];
-            //console.log(controlObject);
             var ccid = controlObject.id;
             var ccvalue = controlObject.value;
             console.log("ID: " + ccid + ". Value: " + ccvalue);
@@ -165,15 +160,12 @@ var vkwebedit = function() {
       noteoff;
     var midiOutputs = [];
 
-    //console.log(interface);
-
     // Grab an array of all available devices
     var iter = interface.outputs.values();
     var numDevice = 0;
     for (var i = iter.next(); i && !i.done; i = iter.next()) {
       outputs.push(i.value);
       midiOutputs.push("<option value='" + numDevice + "'>" + i.value.name + "</option>");
-      //console.log(i.value);
       numDevice++;
     }
 

@@ -1,8 +1,9 @@
 {
-    "name": "LTWords",
+    "name": "vkwebedit",
     "dependencies": {
         "bootstrap": "*",
         "jquery": "*",
-        "jquery-knob": "*"
+        "jquery-knob": "*",
+        "jquery-ui": "*"
     }
 }

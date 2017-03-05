@@ -7,6 +7,7 @@
 <meta name=viewport content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -52,7 +53,7 @@
   <h2>Generic</h2>
   <div class="form-group">
   <div><label for="cc11">Expression</label></div>
-  <input class="cc-control dial" id="cc11" data-id="11" data-name="Expression" type="text" data-min="0" data-max="127" value="0">
+  <input class="cc-control dial" id="cc11" data-id="11" data-name="Expression" type="text" data-min="0" data-max="127" value="127">
   </div>
 
   <div class="form-group">
@@ -62,7 +63,9 @@
 
   <div class="form-group">
   <div><label for="cc41">Octave</label></div>
-  <input class="cc-control dial" id="cc41" data-id="41" data-name="Expression" type="text" data-min="0" data-max="127" value="0">
+  <input type="hidden" class="cc-control" id="cc41" data-id="41" data-name="Octave" value="2">
+  <span id="cc41display">8'</span>
+  <div id="octaveSlider" class="ui-slider"></div>
   </div>
 </div>
 
@@ -167,6 +170,7 @@ DISCLAIMER: This is just a personal initiative, useful for me, and hopefully for
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="vkwebedit.js"></script>
 
 <script>
@@ -181,6 +185,16 @@ $(document).ready(function() {
     'angleArc': 300,
     'fgColor': '#222222',
     'bgColor': '#8888FF'
+  });
+
+  var octaveValues = ["32'", "16'", "8'", "4'", "2'", "1'"];
+  $("#octaveSlider").slider({
+    max: octaveValues.length - 1,
+    value: 2,
+    slide: function(event, ui) {
+      $("#cc41").text(ui.value);
+      $("#cc41display").text(octaveValues[ui.value]);
+    }
   });
 
   vkwebedit.buildApp();
